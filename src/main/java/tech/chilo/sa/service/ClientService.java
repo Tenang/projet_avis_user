@@ -3,18 +3,23 @@ package tech.chilo.sa.service;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import tech.chilo.sa.dto.ClientDTO;
 import tech.chilo.sa.entities.Client;
+import tech.chilo.sa.mapper.ClientDTOMapper;
 import tech.chilo.sa.repository.ClientRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class ClientService {
 
-    private ClientRepository clientRepository;
+    private ClientDTOMapper clientDTOMapper;
+    private final ClientRepository clientRepository;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientDTOMapper clientDTOMapper, ClientRepository clientRepository) {
+        this.clientDTOMapper = clientDTOMapper;
         this.clientRepository = clientRepository;
     }
 
@@ -27,8 +32,10 @@ public class ClientService {
 
 
     }
-    public List<Client> rechercher(){
-        return this.clientRepository.findAll();
+    public Stream<ClientDTO> rechercher(){
+        return this.clientRepository.findAll()
+
+                .stream().map( clientDTOMapper);
     }
 
     public Client lire(int id) {

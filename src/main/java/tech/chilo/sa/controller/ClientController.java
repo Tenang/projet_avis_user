@@ -4,11 +4,13 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.chilo.sa.dto.ClientDTO;
 import tech.chilo.sa.dto.ErrorEntity;
 import tech.chilo.sa.entities.Client;
 import tech.chilo.sa.service.ClientService;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -29,7 +31,7 @@ public class ClientController {
         this.clientService.creer(client);
     }
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public List<Client> rechercher(){
+    public Stream<ClientDTO> rechercher(){
         return this.clientService.rechercher();
     }
     @GetMapping(path = "{id}",produces = APPLICATION_JSON_VALUE)

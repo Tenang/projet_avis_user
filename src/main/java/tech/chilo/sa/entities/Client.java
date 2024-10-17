@@ -2,6 +2,8 @@ package tech.chilo.sa.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 
 @Entity
 @Table(name = "CLIENT")
@@ -13,15 +15,22 @@ public class Client {
     private String email;
 
     private String telephone;
+    @Column(name = "creation")
+    private Date creation;
+    @Column(name = "mis_a_jour")
+    private Date misAjour;
+
 
 
     public Client() {
     }
 
-    public Client(int id, String email, String telephone) {
+    public Client(int id, String email, String telephone, Date creation, Date misAjour) {
         this.id = id;
         this.email = email;
         this.telephone = telephone;
+        this.creation = creation;
+        this.misAjour = misAjour;
     }
 
     public int getId() {
@@ -46,5 +55,21 @@ public class Client {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
+
+    public Date getMisAjour() {
+        return misAjour;
+    }
+
+    public void setMisAjour(Date misAjour) {
+        this.misAjour = misAjour;
     }
 }
